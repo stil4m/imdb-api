@@ -1,14 +1,12 @@
 package nl.stil4m.imdb.parsers;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-
 import nl.stil4m.imdb.domain.TvEpisodeDetails;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.jsoup.nodes.Element;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -47,11 +45,11 @@ public class TvEpisodeDetailsPageParser implements Parser<TvEpisodeDetails> {
 
     private List<String> getGenres(Element document) {
         String genreString = document.select(properties.get(GENRES).toString()).text();
-        return Lists.transform(Lists.newArrayList(genreString.split(" ")), new Function<String, String>() {
-            public String apply(String s) {
-                return s.trim();
-            }
-        });
+        List<String> answer = new ArrayList<String>();
+        for (String genre : genreString.split(" ")) {
+            answer.add(genre.trim());
+        }
+        return answer;
     }
 
     private Long getEpisodeNumber(Element document) {

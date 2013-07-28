@@ -9,7 +9,7 @@ import nl.stil4m.imdb.domain.MovieDetails;
 import nl.stil4m.imdb.domain.SearchResult;
 import nl.stil4m.imdb.exceptions.IMDBException;
 import nl.stil4m.imdb.exceptions.ParseException;
-import nl.stil4m.imdb.filter.SearchResultFilter;
+import nl.stil4m.imdb.filter.Predicate;
 import nl.stil4m.imdb.parsers.MovieDetailsPageParser;
 import nl.stil4m.imdb.parsers.SearchedMoviesParser;
 import nl.stil4m.imdb.parsers.TvEpisodeDetailsPageParser;
@@ -81,15 +81,15 @@ public class IMDBTest {
         SearchResult first = mock(SearchResult.class);
         SearchResult second = mock(SearchResult.class);
 
-        SearchResultFilter searchResultFilter = mock(SearchResultFilter.class);
-        when(searchResultFilter.apply(first)).thenReturn(true);
-        when(searchResultFilter.apply(second)).thenReturn(false);
+        Predicate<SearchResult> predicate = mock(Predicate.class);
+        when(predicate.accepts(first)).thenReturn(true);
+        when(predicate.accepts(second)).thenReturn(false);
 
         List<SearchResult> answer = Lists.newArrayList(first, second);
         when(documentBuilder.buildDocument(isA(Command.class))).thenReturn(document);
         when(searchedMoviesParser.parse(document)).thenReturn(answer);
 
-        List<SearchResult> result = imdb.search("someQuery", searchResultFilter);
+        List<SearchResult> result = imdb.search("someQuery", predicate);
 
         verify(documentBuilder).buildDocument(commandCaptor.capture());
         assertThat(commandCaptor.getValue() instanceof SearchTitleCommand, is(true));

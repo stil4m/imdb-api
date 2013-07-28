@@ -1,24 +1,22 @@
 package nl.stil4m.imdb;
 
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
-
-import nl.stil4m.imdb.commands.TitleDetailsCommand;
 import nl.stil4m.imdb.commands.SearchTitleCommand;
+import nl.stil4m.imdb.commands.TitleDetailsCommand;
 import nl.stil4m.imdb.domain.MovieDetails;
 import nl.stil4m.imdb.domain.SearchResult;
 import nl.stil4m.imdb.domain.TvEpisodeDetails;
 import nl.stil4m.imdb.domain.TvShowDetails;
 import nl.stil4m.imdb.exceptions.*;
-import nl.stil4m.imdb.filter.SearchResultFilter;
 import nl.stil4m.imdb.parsers.MovieDetailsPageParser;
 import nl.stil4m.imdb.parsers.SearchedMoviesParser;
 import nl.stil4m.imdb.parsers.TvEpisodeDetailsPageParser;
 import nl.stil4m.imdb.parsers.TvShowDetailsPageParser;
+import nl.stil4m.imdb.filter.Predicate;
 
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class IMDB {
@@ -48,9 +46,15 @@ public class IMDB {
         }
     }
 
-    public List<SearchResult> search(String movieName, final SearchResultFilter searchResultFilter) throws IMDBException {
+    public List<SearchResult> search(String movieName, final Predicate<SearchResult> searchResultFilter) throws IMDBException {
         List<SearchResult> searchResults = search(movieName);
-        return Lists.newArrayList(Collections2.filter(searchResults, searchResultFilter));
+        List<SearchResult> answer = new ArrayList<SearchResult>();
+        for (SearchResult searchResult : searchResults) {
+            if (searchResultFilter.accepts(searchResult)) {
+                answer.add(searchResult);
+            }
+        }
+        return answer;
     }
 
     public MovieDetails getMovieDetails(String movieId) throws IMDBException {

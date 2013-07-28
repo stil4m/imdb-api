@@ -1,13 +1,13 @@
 package nl.stil4m.imdb.parsers;
 
-import com.google.common.collect.Lists;
-
 import nl.stil4m.imdb.domain.MovieDetails;
 import nl.stil4m.imdb.util.ElementUtil;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -53,7 +53,9 @@ public class MovieDetailsPageParser implements Parser<MovieDetails> {
     }
 
     private List<String> parseCategories(Element document) {
-        return Lists.newArrayList(document.select(properties.get(CATEGORIES).toString()).text().split(" "));
+        List<String> answer = new ArrayList<String>();
+        Collections.addAll(answer, document.select(properties.get(CATEGORIES).toString()).text().split(" "));
+        return answer;
     }
 
     private String parseDescription(Element document) {

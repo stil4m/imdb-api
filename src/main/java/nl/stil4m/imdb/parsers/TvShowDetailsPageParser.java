@@ -1,12 +1,11 @@
 package nl.stil4m.imdb.parsers;
 
-import com.google.common.collect.Lists;
-
 import nl.stil4m.imdb.domain.TvShowDetails;
 import nl.stil4m.imdb.util.ElementUtil;
 
 import org.jsoup.nodes.Element;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -53,7 +52,12 @@ public class TvShowDetailsPageParser implements Parser<TvShowDetails> {
     }
 
     private List<String> getGenres(Element document) {
-        return Lists.newArrayList(document.select(properties.get(GENRES).toString()).text().split(" "));
+        String genreString = document.select(properties.get(GENRES).toString()).text();
+        List<String> answer = new ArrayList<String>();
+        for (String genre : genreString.split(" ")) {
+            answer.add(genre.trim());
+        }
+        return answer;
     }
 
     private Integer getDuration(Element document) {

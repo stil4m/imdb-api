@@ -12,7 +12,7 @@ public class DefaultElementUtil implements ElementUtil {
 
     @Override
     public List<String> allTextForElements(Elements elements) {
-        List<String> strings = new ArrayList<>();
+        List<String> strings = new ArrayList<String>();
         for (Element element : elements) {
             strings.add(element.text());
         }

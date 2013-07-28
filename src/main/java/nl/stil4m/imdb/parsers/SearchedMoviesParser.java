@@ -19,7 +19,7 @@ public class SearchedMoviesParser implements Parser<List<SearchResult>> {
 
     @Override
     public List<SearchResult> parse(Element document) throws ParseException {
-        List<SearchResult> searchResultList = new ArrayList<>();
+        List<SearchResult> searchResultList = new ArrayList<SearchResult>();
 
         Element element = getSearchResultsFromDocument(document);
         if (element == null) {
