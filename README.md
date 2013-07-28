@@ -1,3 +1,5 @@
+Travis says: <img src="https://api.travis-ci.org/stil4m/imdb-api.png" />
+
 # IMDb API
 
 This is a Java library which can be used to extract little pieces of information of the IMDb. The library uses screen scraping as technique to obtain this data.
