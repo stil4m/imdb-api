@@ -42,11 +42,6 @@ public class SearchResult {
     }
 
     @Override
-    public String toString() {
-        return id + " / " + name + " / " + year + " / " + type;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (!(o instanceof SearchResult)) {
             return false;
