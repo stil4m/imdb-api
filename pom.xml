@@ -14,6 +14,13 @@
     </properties>
 
     <dependencies>
+        <!-- Compile dependencies -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.14.8</version>
+            <scope>provided</scope>
+        </dependency>
         <!-- Runtime dependencies -->
         <dependency>
             <groupId>org.jsoup</groupId>

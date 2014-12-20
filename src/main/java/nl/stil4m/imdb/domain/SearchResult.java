@@ -1,10 +1,12 @@
 package nl.stil4m.imdb.domain;
 
+// TODO Make setters private
+@lombok.Data
 public class SearchResult {
 
-    private final String id;
+    private String id;
 
-    private final String name;
+    private String name;
 
     private Integer year;
 
@@ -17,40 +19,5 @@ public class SearchResult {
         this.type = type;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof SearchResult)) {
-            return false;
-        }
-        SearchResult other = (SearchResult) o;
-        return other.getId().equals(id) &&
-                other.getName().equals(name) &&
-                other.getYear().equals(year) &&
-                other.getType().equals(type);
-    }
 
 }
