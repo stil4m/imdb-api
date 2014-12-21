@@ -1,23 +1,12 @@
 package nl.stil4m.imdb.domain;
 
-// TODO Make setters private
+@lombok.experimental.Builder
 @lombok.Data
 public class SearchResult {
 
-    private String id;
-
-    private String name;
-
-    private Integer year;
-
-    private String type;
-
-    public SearchResult(String id, String name, Integer year, String type) {
-        this.id = id;
-        this.name = name;
-        this.year = year;
-        this.type = type;
-    }
-
+    private final String id;
+    private final String name;
+    private final Integer year;
+    private final String type;
 
 }

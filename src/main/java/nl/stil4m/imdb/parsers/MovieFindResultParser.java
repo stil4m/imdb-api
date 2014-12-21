@@ -10,11 +10,15 @@ public class MovieFindResultParser implements Parser<SearchResult> {
 
     @Override
     public SearchResult parse(Element document) throws ParseException {
+        SearchResult.SearchResultBuilder builder = SearchResult.builder();
         Element textResult = getTextResult(document);
-        SearchResult searchResult = new SearchResult(getMovieId(textResult), getMovieName(textResult), 0, "Movie");
+        builder.id(getMovieId(textResult));
+        builder.name(getMovieName(textResult));
+        builder.year(0);
+        builder.type("Movie");
         String metaInfo = getMetaInfo(textResult);
-        setupMetaInfo(searchResult, metaInfo);
-        return searchResult;
+        setupMetaInfo(builder, metaInfo);
+        return builder.build();
     }
 
     private String getMovieId(Element textResult) {
@@ -27,7 +31,7 @@ public class MovieFindResultParser implements Parser<SearchResult> {
         return href;
     }
 
-    private void setupMetaInfo(SearchResult searchResult, String metaInfo) {
+    private void setupMetaInfo(SearchResult.SearchResultBuilder builder, String metaInfo) {
         if (metaInfo.length() == 0) {
             return;
         }
@@ -38,13 +42,13 @@ public class MovieFindResultParser implements Parser<SearchResult> {
                 compIndex++;
             }
             try {
-                Integer year = Integer.parseInt(components[compIndex]);
-                searchResult.setYear(year);
+                int year = Integer.parseInt(components[compIndex]);
+                builder.year(year);
                 if (components.length > compIndex + 1) {
-                    searchResult.setType(components[compIndex + 1]);
+                    builder.type(components[compIndex + 1]);
                 }
             } catch (NumberFormatException e) {
-                searchResult.setType(components[compIndex]);
+                builder.type(components[compIndex]);
             }
         }
     }
