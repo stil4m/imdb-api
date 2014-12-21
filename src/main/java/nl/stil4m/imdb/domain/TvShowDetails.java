@@ -7,10 +7,10 @@ import java.util.List;
 public class TvShowDetails {
 
     private final String name;
-    private final Double rating;
-    private final Integer startYear;
-    private final Integer endYear;
-    private final Integer duration;
+    private final double rating;
+    private final int startYear;
+    private final int endYear;
+    private final int duration;
     private final List<String> genres;
     private final String plot;
     private final List<String> creators;

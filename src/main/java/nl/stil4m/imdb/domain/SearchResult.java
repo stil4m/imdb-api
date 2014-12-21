@@ -6,7 +6,7 @@ public class SearchResult {
 
     private final String id;
     private final String name;
-    private final Integer year;
+    private final int year;
     private final String type;
 
 }

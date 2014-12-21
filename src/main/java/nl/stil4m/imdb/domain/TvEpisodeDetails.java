@@ -8,9 +8,9 @@ public class TvEpisodeDetails {
 
     private final String showName;
     private final String episodeName;
-    private final Long seasonNumber;
-    private final Long episodeNumber;
+    private final long seasonNumber;
+    private final long episodeNumber;
     private final List<String> genres;
-    private final Long airDate;
+    private final long airDate;
 
 }
