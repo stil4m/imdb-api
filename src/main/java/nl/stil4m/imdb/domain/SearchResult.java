@@ -1,6 +1,7 @@
 package nl.stil4m.imdb.domain;
 
 @lombok.experimental.Builder
+@lombok.AllArgsConstructor
 @lombok.Data
 public class SearchResult {
 
