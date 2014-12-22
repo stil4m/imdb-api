@@ -12,10 +12,7 @@ public class MovieFindResultParser implements Parser<SearchResult> {
     public SearchResult parse(Element document) throws ParseException {
         SearchResult.SearchResultBuilder builder = SearchResult.builder();
         Element textResult = getTextResult(document);
-        builder.id(getMovieId(textResult));
-        builder.name(getMovieName(textResult));
-        builder.year(0);
-        builder.type("Movie");
+        builder.id(getMovieId(textResult)).name(getMovieName(textResult)).year(0).type("Movie");
         String metaInfo = getMetaInfo(textResult);
         setupMetaInfo(builder, metaInfo);
         return builder.build();
