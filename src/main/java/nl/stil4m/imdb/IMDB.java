@@ -6,12 +6,16 @@ import nl.stil4m.imdb.domain.MovieDetails;
 import nl.stil4m.imdb.domain.SearchResult;
 import nl.stil4m.imdb.domain.TvEpisodeDetails;
 import nl.stil4m.imdb.domain.TvShowDetails;
-import nl.stil4m.imdb.exceptions.*;
+import nl.stil4m.imdb.exceptions.IMDBException;
+import nl.stil4m.imdb.exceptions.MovieDetailsException;
+import nl.stil4m.imdb.exceptions.ParseException;
+import nl.stil4m.imdb.exceptions.TvEpisodeDetailsException;
+import nl.stil4m.imdb.exceptions.TvShowDetailsException;
+import nl.stil4m.imdb.filter.Predicate;
 import nl.stil4m.imdb.parsers.MovieDetailsPageParser;
 import nl.stil4m.imdb.parsers.SearchedMoviesParser;
 import nl.stil4m.imdb.parsers.TvEpisodeDetailsPageParser;
 import nl.stil4m.imdb.parsers.TvShowDetailsPageParser;
-import nl.stil4m.imdb.filter.Predicate;
 
 import org.jsoup.nodes.Document;
 

@@ -5,9 +5,9 @@ import nl.stil4m.imdb.util.ElementUtil;
 
 import org.jsoup.nodes.Element;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,20 +40,20 @@ public class TvShowDetailsPageParser implements Parser<TvShowDetails> {
         Integer startYear = getStartYear(document);
         Integer endYear = getEndYear(document);
         Integer duration = getDuration(document);
-        List<String> genres = getGenres(document);
-        List<String> creators = getCreators(document);
+        Set<String> genres = getGenres(document);
+        Set<String> creators = getCreators(document);
         return new TvShowDetails(name, rating, startYear, endYear, duration, genres, plot, creators);
     }
 
-    private List<String> getCreators(Element document) {
-        return elementUtil.allTextForElements(
+    private Set<String> getCreators(Element document) {
+        return elementUtil.allTextForElementsSet(
                 document.select(properties.get(CREATORS).toString())
         );
     }
 
-    private List<String> getGenres(Element document) {
+    private Set<String> getGenres(Element document) {
         String genreString = document.select(properties.get(GENRES).toString()).text();
-        List<String> answer = new ArrayList<String>();
+        Set<String> answer = new HashSet<String>();
         for (String genre : genreString.split(" ")) {
             answer.add(genre.trim());
         }

@@ -13,7 +13,7 @@ public class SearchTitleCommand implements Command {
 
     @Override
     public String getUrlExtension() throws UnsupportedEncodingException {
-        return "/find?q="+ URLEncoder.encode(searchName, "UTF-8")+"&s=tt";
+        return "/find?q=" + URLEncoder.encode(searchName, "UTF-8") + "&s=tt";
     }
 
 }

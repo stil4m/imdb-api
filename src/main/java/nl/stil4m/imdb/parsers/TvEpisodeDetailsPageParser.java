@@ -14,7 +14,7 @@ public class TvEpisodeDetailsPageParser implements Parser<TvEpisodeDetails> {
 
     private static final String AIR_DATE = "TvEpisodeDetailsPageParser.airDate";
     private static final String SHOW_NAME = "TvEpisodeDetailsPageParser.showName";
-    private static final String GENRES= "TvEpisodeDetailsPageParser.genres";
+    private static final String GENRES = "TvEpisodeDetailsPageParser.genres";
     private static final String EPISODE_NUMBER = "TvEpisodeDetailsPageParser.episodeNumber";
     private static final String SEASON_NUMBER = "TvEpisodeDetailsPageParser.seasonNumber";
     private static final String EPISODE_NAME = "TvEpisodeDetailsPageParser.episodeName";

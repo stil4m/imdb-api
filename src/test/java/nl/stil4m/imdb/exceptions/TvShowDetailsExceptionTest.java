@@ -11,7 +11,7 @@ public class TvShowDetailsExceptionTest {
     @Test
     public void testConstructor() {
         Throwable throwable = mock(Throwable.class);
-        TvShowDetailsException tvShowDetailsException  = new TvShowDetailsException("Message", throwable);
+        TvShowDetailsException tvShowDetailsException = new TvShowDetailsException("Message", throwable);
         assertThat(tvShowDetailsException.getMessage(), is("Message"));
         assertThat(tvShowDetailsException.getCause(), is(throwable));
     }

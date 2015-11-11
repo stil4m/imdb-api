@@ -30,7 +30,9 @@ import static junit.framework.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class IMDBTest {
 
@@ -93,7 +95,7 @@ public class IMDBTest {
 
         verify(documentBuilder).buildDocument(commandCaptor.capture());
         assertThat(commandCaptor.getValue() instanceof SearchTitleCommand, is(true));
-        assertThat(result, is((List<SearchResult>)Lists.newArrayList(first)));
+        assertThat(result, is((List<SearchResult>) Lists.newArrayList(first)));
     }
 
     @Test
@@ -131,7 +133,7 @@ public class IMDBTest {
         verify(documentBuilder).buildDocument(commandCaptor.capture());
 
         assertThat(commandCaptor.getValue() instanceof TitleDetailsCommand, is(true));
-        assertThat(((TitleDetailsCommand)commandCaptor.getValue()).getId(), is("someId"));
+        assertThat(((TitleDetailsCommand) commandCaptor.getValue()).getId(), is("someId"));
         assertThat(result, is(answer));
 
     }

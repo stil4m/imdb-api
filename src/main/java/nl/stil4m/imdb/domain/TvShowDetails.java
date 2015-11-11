@@ -1,6 +1,6 @@
 package nl.stil4m.imdb.domain;
 
-import java.util.List;
+import java.util.Set;
 
 @lombok.Setter(lombok.AccessLevel.NONE)
 @lombok.Data
@@ -11,8 +11,8 @@ public class TvShowDetails {
     private final int startYear;
     private final int endYear;
     private final int duration;
-    private final List<String> genres;
+    private final Set<String> genres;
     private final String plot;
-    private final List<String> creators;
+    private final Set<String> creators;
 
 }

@@ -8,7 +8,7 @@ public class MovieTypeFilter implements Predicate<SearchResult> {
     public boolean accepts(SearchResult searchResult) {
         return searchResult.getType() != null && (
                 "movie".equals(searchResult.getType().toLowerCase()) ||
-                "short".equals(searchResult.getType().toLowerCase())
+                        "short".equals(searchResult.getType().toLowerCase())
         );
     }
 
