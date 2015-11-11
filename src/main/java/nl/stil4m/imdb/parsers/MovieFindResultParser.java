@@ -71,7 +71,7 @@ public class MovieFindResultParser implements Parser<SearchResult> {
         return textResults.get(0);
     }
 
-    public String getMetaInfo(Element textResult) {
+    private String getMetaInfo(Element textResult) {
         return textResult.ownText().substring(0, textResult.ownText().lastIndexOf(')') + 1);
     }
 

@@ -53,7 +53,7 @@ public class TvShowDetailsPageParser implements Parser<TvShowDetails> {
 
     private Set<String> getGenres(Element document) {
         String genreString = document.select(properties.get(GENRES).toString()).text();
-        Set<String> answer = new HashSet<String>();
+        Set<String> answer = new HashSet<>();
         for (String genre : genreString.split(" ")) {
             answer.add(genre.trim());
         }

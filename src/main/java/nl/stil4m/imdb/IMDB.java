@@ -20,8 +20,8 @@ import nl.stil4m.imdb.parsers.TvShowDetailsPageParser;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class IMDB {
 
@@ -52,13 +52,9 @@ public class IMDB {
 
     public List<SearchResult> search(String movieName, final Predicate<SearchResult> searchResultFilter) throws IMDBException {
         List<SearchResult> searchResults = search(movieName);
-        List<SearchResult> answer = new ArrayList<SearchResult>();
-        for (SearchResult searchResult : searchResults) {
-            if (searchResultFilter.accepts(searchResult)) {
-                answer.add(searchResult);
-            }
-        }
-        return answer;
+        return searchResults.stream()
+                .filter(searchResultFilter::accepts)
+                .collect(Collectors.toList());
     }
 
     public MovieDetails getMovieDetails(String movieId) throws IMDBException {

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SearchedMoviesParser implements Parser<List<SearchResult>> {
 
-    private MovieFindResultParser movieFindResultParser;
+    private final MovieFindResultParser movieFindResultParser;
 
     public SearchedMoviesParser(MovieFindResultParser movieFindResultParser) {
         this.movieFindResultParser = movieFindResultParser;
@@ -19,7 +19,7 @@ public class SearchedMoviesParser implements Parser<List<SearchResult>> {
 
     @Override
     public List<SearchResult> parse(Element document) throws ParseException {
-        List<SearchResult> searchResultList = new ArrayList<SearchResult>();
+        List<SearchResult> searchResultList = new ArrayList<>();
 
         Element element = getSearchResultsFromDocument(document);
         if (element == null) {

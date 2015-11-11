@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <groupId>nl.stil4m</groupId>
     <artifactId>imdb-api</artifactId>
     <name>IMDb API</name>
@@ -67,8 +67,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.0</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
 
@@ -145,6 +145,6 @@
         </repository>
     </distributionManagement>
 
-    
+
 </project>
 

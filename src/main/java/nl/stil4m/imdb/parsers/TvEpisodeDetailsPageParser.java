@@ -45,7 +45,7 @@ public class TvEpisodeDetailsPageParser implements Parser<TvEpisodeDetails> {
 
     private List<String> getGenres(Element document) {
         String genreString = document.select(properties.get(GENRES).toString()).text();
-        List<String> answer = new ArrayList<String>();
+        List<String> answer = new ArrayList<>();
         for (String genre : genreString.split(" ")) {
             answer.add(genre.trim());
         }

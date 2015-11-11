@@ -7,9 +7,9 @@ import java.util.List;
 public class MovieDetails {
 
     private final String movieName;
-    private final int year;
+    private final Integer year;
     private final String description;
-    private final double rating;
+    private final Double rating;
     private final List<String> directors;
     private final List<String> writers;
     private final List<String> stars;

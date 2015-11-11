@@ -53,7 +53,7 @@ public class MovieDetailsPageParser implements Parser<MovieDetails> {
     }
 
     private List<String> parseCategories(Element document) {
-        List<String> answer = new ArrayList<String>();
+        List<String> answer = new ArrayList<>();
         Collections.addAll(answer, document.select(properties.get(CATEGORIES).toString()).text().split(" "));
         return answer;
     }

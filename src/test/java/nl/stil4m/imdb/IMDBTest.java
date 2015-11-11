@@ -30,6 +30,7 @@ import static junit.framework.Assert.fail;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -83,6 +84,7 @@ public class IMDBTest {
         SearchResult first = mock(SearchResult.class);
         SearchResult second = mock(SearchResult.class);
 
+        @SuppressWarnings("unchecked")
         Predicate<SearchResult> predicate = mock(Predicate.class);
         when(predicate.accepts(first)).thenReturn(true);
         when(predicate.accepts(second)).thenReturn(false);
@@ -100,7 +102,8 @@ public class IMDBTest {
 
     @Test
     public void testSearchWithIOException() throws IOException {
-        when(documentBuilder.buildDocument(isA(Command.class))).thenThrow(IOException.class);
+        doThrow(IOException.class).when(documentBuilder).buildDocument(isA(Command.class));
+
         try {
             imdb.search("someQuery");
             fail();
@@ -112,7 +115,7 @@ public class IMDBTest {
 
     @Test
     public void testSearchWithParseException() throws IOException {
-        when(documentBuilder.buildDocument(isA(Command.class))).thenThrow(ParseException.class);
+        doThrow(ParseException.class).when(documentBuilder).buildDocument(isA(Command.class));
         try {
             imdb.search("someQuery");
             fail();
