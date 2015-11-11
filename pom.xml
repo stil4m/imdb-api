@@ -133,5 +133,18 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>local-snapshots</id>
+            <url>${deployPath}/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>local-releases</id>
+            <url>${deployPath}/releases</url>
+        </repository>
+    </distributionManagement>
+
+    
 </project>
 
