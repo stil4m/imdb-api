@@ -7,8 +7,10 @@ import org.joda.time.format.DateTimeFormat;
 import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class TvEpisodeDetailsPageParser implements Parser<TvEpisodeDetails> {
 
@@ -38,9 +40,16 @@ public class TvEpisodeDetailsPageParser implements Parser<TvEpisodeDetails> {
     }
 
     private Long getAirDate(Element document) {
-        String dateStringWithBrackets = document.select(properties.get(AIR_DATE).toString()).text();
-        String dateString = dateStringWithBrackets.substring(1, dateStringWithBrackets.length() - 1);
-        return DateTime.parse(dateString, DateTimeFormat.forPattern("dd MMM. yyyy")).getMillis();
+        String[] dateStringWithBrackets = document.select(properties.get(AIR_DATE).toString()).text().split(Pattern.quote("|"));
+
+        String dateString = Arrays.stream(dateStringWithBrackets).filter(n -> n.contains("aired")).findFirst().get();
+
+        int indexOfYear = dateString.lastIndexOf(" ");
+        int indexOfMonth = dateString.substring(0, indexOfYear).trim().lastIndexOf(" ");
+        int indexOfDay = dateString.substring(0, indexOfMonth).trim().lastIndexOf(" ");
+
+        String date = dateString.substring(indexOfDay).trim();
+        return DateTime.parse(date, DateTimeFormat.forPattern("dd MMMM yyyy")).getMillis();
     }
 
     private List<String> getGenres(Element document) {
@@ -54,13 +63,13 @@ public class TvEpisodeDetailsPageParser implements Parser<TvEpisodeDetails> {
 
     private Long getEpisodeNumber(Element document) {
         String episodeInfoText = document.select(properties.get(EPISODE_NUMBER).toString()).text();
-        String episodeInfo = episodeInfoText.split(",")[1];
+        String episodeInfo = episodeInfoText.split(Pattern.quote("|"))[1];
         return Long.parseLong(episodeInfo.replace("Episode", "").trim());
     }
 
     private Long getSeasonNumber(Element document) {
         String episodeInfoText = document.select(properties.get(SEASON_NUMBER).toString()).text();
-        String seasonInfo = episodeInfoText.split(",")[0];
+        String seasonInfo = episodeInfoText.split(Pattern.quote("|"))[0];
         return Long.parseLong(seasonInfo.replace("Season", "").trim());
     }
 

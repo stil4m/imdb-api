@@ -6,10 +6,9 @@ import nl.stil4m.imdb.util.ElementUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class MovieDetailsPageParser implements Parser<MovieDetails> {
 
@@ -54,12 +53,12 @@ public class MovieDetailsPageParser implements Parser<MovieDetails> {
 
     private List<String> parseCategories(Element document) {
         List<String> answer = new ArrayList<>();
-        Collections.addAll(answer, document.select(properties.get(CATEGORIES).toString()).text().split(" "));
-        return answer;
+        Collections.addAll(answer, document.select(properties.get(CATEGORIES).toString()).text().trim().split(Pattern.quote("|"))[2].split(", "));
+        return answer.stream().map(n -> n.trim()).collect(Collectors.toList());
     }
 
     private String parseDescription(Element document) {
-        return document.select(properties.get(DESCRIPTION).toString()).text();
+       return document.select(properties.get(DESCRIPTION).toString()).text();
     }
 
     private Double parseRating(Element document) {
@@ -72,7 +71,10 @@ public class MovieDetailsPageParser implements Parser<MovieDetails> {
     }
 
     private List<String> parseWriters(Element document) {
-        return elementUtil.allTextForElements(document.select(properties.get(WRITERS).toString()));
+
+        String stars = document.select(properties.get(WRITERS).toString()).text()
+                .replace("Writers: ", "").replace("Writer: ", "").trim().split(Pattern.quote("|"))[0];
+        return Arrays.asList(stars.split(", ")).stream().map(n -> n.contains("(") ? n.substring(0, n.indexOf("(")).trim() : n).collect(Collectors.toList());
     }
 
     private List<String> parseDirectors(Element document) {
@@ -80,7 +82,13 @@ public class MovieDetailsPageParser implements Parser<MovieDetails> {
     }
 
     private List<String> parseStars(Element document) {
-        return elementUtil.allTextForElements(document.select(properties.get(STARS).toString()));
+        try {
+            String stars = document.select(properties.get(STARS).toString()).text().replace("Stars: ", "").trim().split(Pattern.quote("|"))[0];
+            return Arrays.asList(stars.split(", ").clone());
+        }
+        catch (Exception ex) {
+            return new ArrayList<>();
+        }
     }
 
     private String parseMovieName(Element document) {
@@ -92,12 +100,13 @@ public class MovieDetailsPageParser implements Parser<MovieDetails> {
             }
             return text;
         }
-        return header.select(properties.get(NAME_TITLE_NORMAL).toString()).text();
+        String title = document.select(properties.get(NAME_TITLE_NORMAL).toString()).text();
+
+        return title.contains("(") ? title.substring(0, title.indexOf("(")).trim() : title.trim();
     }
 
     private Integer parseMovieYear(Element document) {
-        String yearString = document.select(properties.get(YEAR).toString()).text();
-        yearString = yearString.substring(1, 5);
+        String yearString = document.select(properties.get(YEAR).toString()).text().trim();
         return Integer.parseInt(yearString);
     }
 

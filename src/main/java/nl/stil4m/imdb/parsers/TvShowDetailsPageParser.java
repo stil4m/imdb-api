@@ -4,6 +4,7 @@ import nl.stil4m.imdb.domain.TvShowDetails;
 import nl.stil4m.imdb.util.ElementUtil;
 
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.HashSet;
 import java.util.Properties;
@@ -52,16 +53,16 @@ public class TvShowDetailsPageParser implements Parser<TvShowDetails> {
     }
 
     private Set<String> getGenres(Element document) {
-        String genreString = document.select(properties.get(GENRES).toString()).text();
+        String genreString = document.select(properties.get(GENRES).toString()).text().split(Pattern.quote("|"))[1].trim();
         Set<String> answer = new HashSet<>();
-        for (String genre : genreString.split(" ")) {
+        for (String genre : genreString.split(",")) {
             answer.add(genre.trim());
         }
         return answer;
     }
 
     private Integer getDuration(Element document) {
-        return Integer.parseInt(document.select(properties.get(DURATION).toString()).text().replace(" min", ""));
+        return Integer.parseInt(document.select(properties.get(DURATION).toString()).text().split(Pattern.quote("|"))[0].replace("min", "").trim());
     }
 
     private Integer getEndYear(Element document) {
@@ -75,7 +76,9 @@ public class TvShowDetailsPageParser implements Parser<TvShowDetails> {
     }
 
     private Integer getStartYear(Element document) {
-        String yearString = document.select(properties.get(YEAR).toString()).text();
+        final String subtitle = document.select(properties.get(YEAR).toString()).text();
+
+        String yearString = subtitle.split(Pattern.quote("|"))[2];
         Matcher matcher = YEAR_PATTERN.matcher(yearString);
         matcher.find();
         return Integer.parseInt(matcher.group(1));
