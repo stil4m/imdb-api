@@ -21,11 +21,11 @@ jobs:
       with:
         java-version: 1.8
     - name: Run all tests
-        run: mvn verify
-   - name: Build with Maven
+      run: mvn verify
+    - name: Build with Maven
       run: mvn -B package --file pom.xml
-   - run: mkdir artifacts && cp target/*.jar artifacts
-   - name: Upload artifact
+    - run: mkdir artifacts && cp target/*.jar artifacts
+    - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
         name: Imdb-api
