@@ -1,8 +1,6 @@
 package nl.stil4m.imdb.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
@@ -13,5 +11,6 @@ public class SearchResult {
     private final String name;
     private final int year;
     private final String type;
+    private final String thumbnail;
 
 }

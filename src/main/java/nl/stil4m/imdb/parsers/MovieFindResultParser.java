@@ -11,11 +11,22 @@ public class MovieFindResultParser implements Parser<SearchResult> {
     @Override
     public SearchResult parse(Element document) throws ParseException {
         SearchResult.SearchResultBuilder builder = SearchResult.builder();
+
+        String thumbnail = getPhotoResult(document);
         Element textResult = getTextResult(document);
-        builder.id(getMovieId(textResult)).name(getMovieName(textResult)).year(0).type("Movie");
+        builder.id(getMovieId(textResult)).name(getMovieName(textResult)).year(0).type("Movie").thumbnail(thumbnail);
         String metaInfo = getMetaInfo(textResult);
         setupMetaInfo(builder, metaInfo);
         return builder.build();
+    }
+
+    private String getPhotoResult(Element document) throws ParseException {
+        Elements photoElement = document.select(".primary_photo");
+        if (photoElement.size() != 1) {
+            throw new ParseException("Unexpected number of primary_photo elements");
+        }
+        final String image = photoElement.get(0).getElementsByTag("a").get(0).getElementsByTag("img").get(0).attr("src");
+        return image;
     }
 
     private String getMovieId(Element textResult) {

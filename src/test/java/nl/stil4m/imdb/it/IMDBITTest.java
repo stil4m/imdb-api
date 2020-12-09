@@ -54,12 +54,12 @@ public class IMDBITTest {
         List<SearchResult> resultList = imdb.search("inglourious basterds");
 
         assertThat(resultList.size(), is(19));
-        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2009, "Movie")), is(true));
-        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2009, "Abc")), is(false));
-        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2008, "Movie")), is(false));
-        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterd", 2009, "Movie")), is(false));
-        assertThat(resultList.contains(new SearchResult("tt1515156", "Inglourious Basterds: Movie Special", 2009, "TV Movie")), is(true));
-        assertThat(resultList.contains(new SearchResult("tt0000000", "Nijntje", 0, "Abc")), is(false));
+        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2009, "Movie", "https://m.media-amazon.com/images/M/MV5BOTJiNDEzOWYtMTVjOC00ZjlmLWE0NGMtZmE1OWVmZDQ2OWJhXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_UX32_CR0,0,32,44_AL_.jpg")), is(true));
+        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2009, "Abc", "")), is(false));
+        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2008, "Movie", "")), is(false));
+        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterd", 2009, "Movie", "")), is(false));
+        assertThat(resultList.contains(new SearchResult("tt1515156", "Inglourious Basterds: Movie Special", 2009, "TV Movie", "https://m.media-amazon.com/images/G/01/imdb/images/nopicture/32x44/film-3119741174._CB468665901_.png")), is(true));
+        assertThat(resultList.contains(new SearchResult("tt0000000", "Nijntje", 0, "Abc", "")), is(false));
     }
 
     @Test
@@ -68,11 +68,11 @@ public class IMDBITTest {
         List<SearchResult> resultList = imdb.search("inglourious basterds", new MovieTypeFilter());
 
         assertThat(resultList.size(), is(3));
-        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2009, "Movie")), is(true));
-        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2009, "Abc")), is(false));
-        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2008, "Movie")), is(false));
-        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterd", 2009, "Movie")), is(false));
-        assertThat(resultList.contains(new SearchResult("tt0000000", "Nijntje", 0, "Abc")), is(false));
+        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2009, "Movie", "https://m.media-amazon.com/images/M/MV5BOTJiNDEzOWYtMTVjOC00ZjlmLWE0NGMtZmE1OWVmZDQ2OWJhXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_UX32_CR0,0,32,44_AL_.jpg")), is(true));
+        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2009, "Abc", "")), is(false));
+        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterds", 2008, "Movie", "")), is(false));
+        assertThat(resultList.contains(new SearchResult("tt0361748", "Inglourious Basterd", 2009, "Movie", "")), is(false));
+        assertThat(resultList.contains(new SearchResult("tt0000000", "Nijntje", 0, "Abc", "")), is(false));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class IMDBITTest {
     public void testSearch4() throws IMDBException {
 
         List<SearchResult> resultList = imdb.search("drift");
-        assertThat(resultList.contains(new SearchResult("tt1714833", "Drift", 2013, "Movie")), is(true));
+        assertThat(resultList.contains(new SearchResult("tt1714833", "Drift", 2013, "Movie", "https://m.media-amazon.com/images/M/MV5BMTkwNjgxMTQ3OF5BMl5BanBnXkFtZTcwMTU0NTY2OQ@@._V1_UX32_CR0,0,32,44_AL_.jpg")), is(true));
     }
 
 
