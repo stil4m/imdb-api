@@ -2,10 +2,10 @@ package nl.stil4m.imdb.parsers;
 
 import nl.stil4m.imdb.domain.TvEpisodeDetails;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.jsoup.nodes.Element;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,28 +34,31 @@ public class TvEpisodeDetailsPageParser implements Parser<TvEpisodeDetails> {
         Long seasonNumber = getSeasonNumber(document);
         Long episodeNumber = getEpisodeNumber(document);
         List<String> genres = getGenres(document);
-        Long airDate = getAirDate(document);
+        LocalDate airDate = getAirDate(document);
 
         return new TvEpisodeDetails(showName, episodeName, seasonNumber, episodeNumber, genres, airDate);
     }
 
-    private Long getAirDate(Element document) {
+    private LocalDate getAirDate(Element document) {
         String[] dateStringWithBrackets = document.select(properties.get(AIR_DATE).toString()).text().split(Pattern.quote("|"));
 
-        String dateString = Arrays.stream(dateStringWithBrackets).filter(n -> n.contains("aired")).findFirst().get();
+        String dateString = Arrays.stream(dateStringWithBrackets)
+                .filter(n -> n.contains("aired"))
+                .findFirst()
+                .get()
+                .replace("Episode aired ", "")
+                .trim();
 
-        int indexOfYear = dateString.lastIndexOf(" ");
-        int indexOfMonth = dateString.substring(0, indexOfYear).trim().lastIndexOf(" ");
-        int indexOfDay = dateString.substring(0, indexOfMonth).trim().lastIndexOf(" ");
-
-        String date = dateString.substring(indexOfDay).trim();
-        return DateTime.parse(date, DateTimeFormat.forPattern("dd MMMM yyyy")).getMillis();
+        if(dateString.length() == 4) {
+            return LocalDate.of(Integer.parseInt(dateString), 1, 1);
+        }
+        return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd MMMM yyyy"));
     }
 
     private List<String> getGenres(Element document) {
-        String genreString = document.select(properties.get(GENRES).toString()).text();
+        String genreString = document.select(properties.get(GENRES).toString()).text().split(Pattern.quote("|"))[0].trim();
         List<String> answer = new ArrayList<>();
-        for (String genre : genreString.split(" ")) {
+        for (String genre : genreString.split(", ")) {
             answer.add(genre.trim());
         }
         return answer;

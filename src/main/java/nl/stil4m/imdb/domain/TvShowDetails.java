@@ -1,9 +1,13 @@
 package nl.stil4m.imdb.domain;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+
 import java.util.Set;
 
-@lombok.Setter(lombok.AccessLevel.NONE)
-@lombok.Data
+@Setter(AccessLevel.NONE)
+@Data
 public class TvShowDetails {
 
     private final String name;

@@ -13,14 +13,13 @@ import nl.stil4m.imdb.exceptions.IMDBException;
 import nl.stil4m.imdb.exceptions.MovieDetailsException;
 import nl.stil4m.imdb.filter.MovieTypeFilter;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -104,6 +103,7 @@ public class IMDBITTest {
 
         assertThat(movieDetails.getMovieName(), is("Inglourious Basterds"));
         assertThat(movieDetails.getYear(), is(2009));
+        assertThat(movieDetails.getDuration(), is(153));
         assertThat(movieDetails.getRating(), is(8.3));
         assertThat(movieDetails.getDescription(), is("In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner's vengeful plans for the same."));
         assertThat(movieDetails.getDirectors(), is((List<String>) Lists.newArrayList("Quentin Tarantino")));
@@ -121,6 +121,7 @@ public class IMDBITTest {
 
         assertThat(movieDetails.getMovieName(), is("No Country for Old Men"));
         assertThat(movieDetails.getYear(), is(2007));
+        assertThat(movieDetails.getDuration(), is(122));
         assertThat(movieDetails.getRating(), is(8.1));
         assertThat(movieDetails.getDescription(), is("Violence and mayhem ensue after a hunter stumbles upon a drug deal gone wrong and more than two million dollars in cash near the Rio Grande."));
         assertThat(movieDetails.getDirectors(), is((List<String>) Lists.newArrayList("Ethan Coen", "Joel Coen")));
@@ -136,6 +137,7 @@ public class IMDBITTest {
 
         MovieDetails movieDetails = imdb.getMovieDetails("tt1392214");
 
+        assertThat(movieDetails.getDuration(), is(153));
         assertThat(movieDetails.getMovieName(), is("Prisoners"));
         assertThat(movieDetails.getYear(), is(2013));
         assertThat(movieDetails.getRating(), is(8.1));
@@ -177,7 +179,7 @@ public class IMDBITTest {
     public void testFetchTvEpisodeInformation() throws IMDBException {
 
         TvEpisodeDetails tvEpisodeDetails = imdb.getTvEpisodeDetails("tt1871715");
-        assertThat(tvEpisodeDetails.getAirDate(), is(DateTime.parse("29 Sep. 2010", DateTimeFormat.forPattern("dd MMM. yyyy")).getMillis()));
+        assertThat(tvEpisodeDetails.getAirDate(), is(LocalDate.of(2010, 9, 29)));
         assertThat(tvEpisodeDetails.getSeasonNumber(), is(2L));
         assertThat(tvEpisodeDetails.getEpisodeNumber(), is(4L));
         assertThat(tvEpisodeDetails.getEpisodeName(), is("Chris Hölsken/Henk Bleker/Bryan Rookhuijzen"));
@@ -189,7 +191,7 @@ public class IMDBITTest {
     public void testFetchTvEpisodeInformation2() throws IMDBException {
 
         TvEpisodeDetails tvEpisodeDetails = imdb.getTvEpisodeDetails("tt2178802");
-        assertThat(tvEpisodeDetails.getAirDate(), is(DateTime.parse("14 Apr. 2013", DateTimeFormat.forPattern("dd MMM. yyyy")).getMillis()));
+        assertThat(tvEpisodeDetails.getAirDate(), is(LocalDate.of(2013, 4, 14)));
         assertThat(tvEpisodeDetails.getSeasonNumber(), is(3L));
         assertThat(tvEpisodeDetails.getEpisodeNumber(), is(3L));
         assertThat(tvEpisodeDetails.getEpisodeName(), is("Walk of Punishment"));

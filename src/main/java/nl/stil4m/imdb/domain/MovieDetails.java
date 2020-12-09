@@ -1,9 +1,12 @@
 package nl.stil4m.imdb.domain;
 
+import lombok.Data;
+import lombok.Setter;
+
 import java.util.List;
 
-@lombok.Setter(lombok.AccessLevel.NONE)
-@lombok.Data
+@Setter(lombok.AccessLevel.NONE)
+@Data
 public class MovieDetails {
 
     private final String movieName;
@@ -15,5 +18,6 @@ public class MovieDetails {
     private final List<String> stars;
     private final List<String> categories;
     private final String image;
+    private final Integer duration;
 
 }

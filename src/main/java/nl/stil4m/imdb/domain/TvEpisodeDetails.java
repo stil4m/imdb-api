@@ -1,9 +1,13 @@
 package nl.stil4m.imdb.domain;
 
+import lombok.Data;
+import lombok.Setter;
+
+import java.time.LocalDate;
 import java.util.List;
 
-@lombok.Setter(lombok.AccessLevel.NONE)
-@lombok.Data
+@Setter(lombok.AccessLevel.NONE)
+@Data
 public class TvEpisodeDetails {
 
     private final String showName;
@@ -11,6 +15,6 @@ public class TvEpisodeDetails {
     private final long seasonNumber;
     private final long episodeNumber;
     private final List<String> genres;
-    private final long airDate;
+    private final LocalDate airDate;
 
 }

@@ -23,6 +23,7 @@ public class MovieDetailsPageParser implements Parser<MovieDetails> {
     private static final String NAME_TITLE_EXTRA = "MovieDetailsPageParser.nameTitleExtra";
     private static final String NAME_TITLE_NORMAL = "MovieDetailsPageParser.nameTitleNormal";
     private static final String STARS = "MovieDetailsPageParser.stars";
+    private static final String DURATION = "MovieDetailsPageParser.duration";
 
     private final ElementUtil elementUtil;
     private final Properties properties;
@@ -44,7 +45,29 @@ public class MovieDetailsPageParser implements Parser<MovieDetails> {
         List<String> stars = parseStars(document);
         List<String> categories = parseCategories(document);
         String image = parseImage(document);
-        return new MovieDetails(movieName, year, description, rating, directors, writers, stars, categories, image);
+        Integer duration = parseDuration(document);
+        return new MovieDetails(movieName, year, description, rating, directors, writers, stars, categories, image,duration);
+    }
+
+    private Integer parseDuration(Element document) {
+        String header = document.select(properties.get(DURATION).toString()).text();
+
+        String durationString = header.split(Pattern.quote("|"))[1].trim();
+
+        int duration = 0;
+
+        if (durationString.contains("h")) {
+            final String hours = durationString.substring(0, durationString.indexOf("h"));
+            duration += Integer.parseInt(hours)*60;
+        }
+
+        if (durationString.contains("min")) {
+           int startPosition = durationString.indexOf(" ") != -1 ? durationString.indexOf(" ") : 0;
+
+           duration += Integer.parseInt(durationString.substring(startPosition, durationString.length()-3).trim());
+        }
+
+        return duration;
     }
 
     private String parseImage(Element document) {
