@@ -130,13 +130,10 @@
     </build>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>local-snapshots</id>
-            <url>${deployPath}/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>local-releases</id>
-            <url>${deployPath}/releases</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/jimmyd-be/imdb-api</url>
         </repository>
     </distributionManagement>
 
