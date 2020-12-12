@@ -94,6 +94,13 @@ public class IMDBITTest {
         assertThat(resultList.contains(new SearchResult("tt1714833", "Drift", 2013, "Movie", "https://m.media-amazon.com/images/M/MV5BMTkwNjgxMTQ3OF5BMl5BanBnXkFtZTcwMTU0NTY2OQ@@._V1_UX32_CR0,0,32,44_AL_.jpg")), is(true));
     }
 
+    @Test
+    public void testSearch5() throws IMDBException {
+
+        final List<SearchResult> resultList = imdb.search("tenet");
+        assertThat(resultList.contains(new SearchResult("tt6723592", "Tenet", 2020, "Movie", "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_UX32_CR0,0,32,44_AL_.jpg")), is(true));
+    }
+
 
     @Test
     public void testFetch() throws IMDBException {

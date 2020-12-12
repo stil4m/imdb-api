@@ -49,14 +49,17 @@ public class MovieFindResultParser implements Parser<SearchResult> {
             if (isVersionNumber(components[compIndex])) {
                 compIndex++;
             }
-            try {
-                int year = Integer.parseInt(components[compIndex]);
-                builder.year(year);
-                if (components.length > compIndex + 1) {
-                    builder.type(components[compIndex + 1]);
+
+            if(components.length > compIndex) {
+                try {
+                    int year = Integer.parseInt(components[compIndex]);
+                    builder.year(year);
+                    if (components.length > compIndex + 1) {
+                        builder.type(components[compIndex + 1]);
+                    }
+                } catch (NumberFormatException e) {
+                    builder.type(components[compIndex]);
                 }
-            } catch (NumberFormatException e) {
-                builder.type(components[compIndex]);
             }
         }
     }
